@@ -3,13 +3,11 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 import time
 import pyperclip
+import chromedriver_autoinstaller
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from slack_sdk import WebClient #슬랙
 from slack_sdk.errors import SlackApiError #슬랙 에러
-
-# TODO python everywhere에 배포
-
 
 options = webdriver.ChromeOptions()
 #options.add_argument("--disable-extensions")
@@ -17,9 +15,22 @@ options.headless = True
 options.add_argument("window-size=2560x1600")
 options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36")
 headers = {"User-Agent" : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36"}
-driver = webdriver.Chrome(options=options)
 slack_token = 'xoxb-3594636446836-3585655033366-cCZdlQLoYNlI65TkreS5oCDK'
 client = WebClient(token=slack_token) # 슬랙 생성
+
+# TODO python everywhere에 배포
+chrome_ver = chromedriver_autoinstaller.get_chrome_version().split('.')[0]  #크롬드라이버 버전 확인
+try:
+    driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe',options=options)
+except:
+    chromedriver_autoinstaller.install(True)
+    driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe',options=options)
+
+driver.implicitly_wait(10)
+
+#
+
+
 
 
 def naverLogin():
