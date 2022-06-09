@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 import time
 import pyperclip
-import chromedriver_autoinstaller
+# import chromedriver_autoinstaller
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from slack_sdk import WebClient #슬랙
@@ -19,13 +19,14 @@ slack_token = 'xoxb-3594636446836-3585655033366-cCZdlQLoYNlI65TkreS5oCDK'
 client = WebClient(token=slack_token) # 슬랙 생성
 
 # TODO python everywhere에 배포
-chrome_ver = chromedriver_autoinstaller.get_chrome_version().split('.')[0]  #크롬드라이버 버전 확인
-try:
-    driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe',options=options)
-except:
-    chromedriver_autoinstaller.install(True)
-    driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe',options=options)
+# chrome_ver = chromedriver_autoinstaller.get_chrome_version().split('.')[0]  #크롬드라이버 버전 확인
+# try:
+#     driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe',options=options)
+# except:
+#     chromedriver_autoinstaller.install(True)
+#     driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe',options=options)
 
+driver = webdriver.Chrome(options=options)
 driver.implicitly_wait(10)
 
 #
