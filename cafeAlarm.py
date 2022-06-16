@@ -29,10 +29,10 @@ client = WebClient(token=slack_token) # 슬랙 생성
 
 
 
-if sys.platform == 'linux':
-  driver = webdriver.Chrome('/usr/lib/chromium-browser/chromedriver',options=options)
+if sys.platform == 'win32':
+    driver = webdriver.Chrome('./chromedriver',options=options)
 else :
-  driver = webdriver.Chrome('./chromedriver',options=options)
+    driver = webdriver.Chrome('/root/alarm/pythonAlarm/chromedriver', options=options)
 
 driver.implicitly_wait(10)
 
