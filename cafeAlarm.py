@@ -10,12 +10,12 @@ from selenium.webdriver.common.by import By
 from slack_sdk import WebClient #슬랙
 from slack_sdk.errors import SlackApiError #슬랙 에러
 
-options = webdriver.ChromeOptions()
+# options = webdriver.ChromeOptions()
 #options.add_argument("--disable-extensions")
-options.headless = True
-options.add_argument("window-size=2560x1600")
-options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36")
-headers = {"User-Agent" : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36"}
+# options.headless = True
+# options.add_argument("window-size=2560x1600")
+# options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36")
+# headers = {"User-Agent" : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36"}
 slack_token = 'xoxb-3594636446836-3585655033366-cCZdlQLoYNlI65TkreS5oCDK'
 client = WebClient(token=slack_token) # 슬랙 생성
 
@@ -27,11 +27,17 @@ client = WebClient(token=slack_token) # 슬랙 생성
 #     chromedriver_autoinstaller.install(True)
 #     driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe',options=options)
 
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument('--headless')
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--disable-dev-shm-usage')
+driver = webdriver.Chrome(executable_path="/root/alarm/pythonAlarm/chromedriver",chrome_options=chrome_options)
 
-if sys.platform == 'linux':
-  driver = webdriver.Chrome('/usr/bin/chromedriver',options=options)
-else :
-  driver = webdriver.Chrome('./chromedriver',options=options)
+
+# if sys.platform == 'linux':
+#   driver = webdriver.Chrome('/usr/bin/chromedriver',options=chrome_options)
+# else :
+#   driver = webdriver.Chrome('./chromedriver',options=chrome_options)
 
 #
 
