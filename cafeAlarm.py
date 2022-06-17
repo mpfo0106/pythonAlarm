@@ -3,23 +3,23 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 import time
 import pyperclip
-import chromedriver_autoinstaller
+
 import sys
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from slack_sdk import WebClient #슬랙
 from slack_sdk.errors import SlackApiError #슬랙 에러
 
-# options = webdriver.ChromeOptions()
-#options.add_argument("--disable-extensions")
-# options.headless = True
-# options.add_argument("window-size=2560x1600")
-# options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36")
-# headers = {"User-Agent" : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36"}
+chromeW_options = webdriver.ChromeOptions()
+chromeW_options.add_argument("--disable-extensions")
+chromeW_options.headless = True
+chromeW_options.add_argument("window-size=2560x1600")
+chromeW_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36")
+
+headers = {"User-Agent" : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36"}
 slack_token = 'xoxb-3594636446836-3585655033366-cCZdlQLoYNlI65TkreS5oCDK'
 client = WebClient(token=slack_token) # 슬랙 생성
 
-# TODO python everywhere에 배포
 # chrome_ver = chromedriver_autoinstaller.get_chrome_version().split('.')[0]  #크롬드라이버 버전 확인
 # try:
 #     driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe',options=options)
@@ -27,22 +27,18 @@ client = WebClient(token=slack_token) # 슬랙 생성
 #     chromedriver_autoinstaller.install(True)
 #     driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe',options=options)
 
-chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument('--headless')
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument('--disable-dev-shm-usage')
-driver = webdriver.Chrome(executable_path="/root/alarm/pythonAlarm/chromedriver",chrome_options=chrome_options)
+chromeL_options = webdriver.ChromeOptions()
 
 
-# if sys.platform == 'linux':
-#   driver = webdriver.Chrome('/usr/bin/chromedriver',options=chrome_options)
-# else :
-#   driver = webdriver.Chrome('./chromedriver',options=chrome_options)
+chromeL_options.add_argument('--headless')
+chromeL_options.add_argument('--no-sandbox')
+chromeL_options.add_argument('--disable-dev-shm-usage')
+chromeL_options.add_argument("user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'")
 
-#
-
-
-
+if sys.platform == 'linux':
+  driver = webdriver.Chrome(executable_path="/root/alarm/pythonAlarm/chromedriver",options=chromeL_options)
+else :
+  driver = webdriver.Chrome('./chromedriver',options=chromeW_options)
 
 def naverLogin():
     url = 'https://nid.naver.com/nidlogin.login?mode=form&url=https%3A%2F%2Fwww.naver.com'
@@ -106,7 +102,7 @@ title = []
 keyWords = ['ㅎㅈ','홍조','ㅎㄴ','홍나','ㅎㅍ','홍풋','신풋','ㅅㅍ','ㅅㅈ','서조','두타','ㄷㅌ','ㅌㅋ','탐퀘','ㅅㄴ','서나','ㄱㄴ','강나','ㅁㄴ','명나','ㅇㅅ','용산','뛰어','뛰','달려']
 baseUrl = 'https://cafe.naver.com/ofad'
 clubid = '29331308'
-naverLogin()
+# naverLogin()
 while(True):
     check_alarm(baseUrl,title) # 전체글보기 정확한 url 을 타겟팅 해줘야해
     if len(title) >15:
