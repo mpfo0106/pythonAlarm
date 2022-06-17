@@ -15,30 +15,22 @@ chromeW_options.add_argument("--disable-extensions")
 chromeW_options.headless = True
 chromeW_options.add_argument("window-size=2560x1600")
 chromeW_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36")
-
 headers = {"User-Agent" : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36"}
-slack_token = 'xoxb-3594636446836-3585655033366-cCZdlQLoYNlI65TkreS5oCDK'
-client = WebClient(token=slack_token) # 슬랙 생성
 
-# chrome_ver = chromedriver_autoinstaller.get_chrome_version().split('.')[0]  #크롬드라이버 버전 확인
-# try:
-#     driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe',options=options)
-# except:
-#     chromedriver_autoinstaller.install(True)
-#     driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe',options=options)
 
 chromeL_options = webdriver.ChromeOptions()
-
-
 chromeL_options.add_argument('--headless')
 chromeL_options.add_argument('--no-sandbox')
 chromeL_options.add_argument('--disable-dev-shm-usage')
 chromeL_options.add_argument("user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'")
 
 if sys.platform == 'linux':
-  driver = webdriver.Chrome(executable_path="/root/alarm/pythonAlarm/chromedriver",options=chromeL_options)
+  driver = webdriver.Chrome('./chromedriver',options=chromeL_options)
 else :
   driver = webdriver.Chrome('./chromedriver',options=chromeW_options)
+
+slack_token = 'xoxb-3594636446836-3585655033366-cCZdlQLoYNlI65TkreS5oCDK'
+client = WebClient(token=slack_token) # 슬랙 생성
 
 def naverLogin():
     url = 'https://nid.naver.com/nidlogin.login?mode=form&url=https%3A%2F%2Fwww.naver.com'
