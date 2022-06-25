@@ -48,7 +48,7 @@ class kreamStorage:
         time.sleep(0.5)
         driver.find_element(By.XPATH,'//*[@id="__layout"]/div/div[2]/div[1]/div/div[2]/div/div[1]/div[3]/div/a[2]').click() # 판매하기 클릭
         time.sleep(0.3)
-        driver.find_element(By.XPATH,'//*[@id="__layout"]/div/div[2]/div/div/div/div[2]/div/ul/li[3]/button').click() # 사이즈
+#        driver.find_element(By.XPATH,'//*[@id="__layout"]/div/div[2]/div/div/div/div[2]/div/ul/li[3]/button').click() # 사이즈
         driver.find_element(By.XPATH,'//*[@id="__layout"]/div/div[2]/div/div/div/div[2]/div[2]/a[1]').click() #보관신청
         flag = self.checkBox()
         driver.find_element(By.XPATH, '//*[@id="__layout"]/div/div[2]/div/div/div/div[2]/div/a').click()  # 보관하기 버튼 클릭
@@ -117,6 +117,7 @@ class kreamStorage:
         flag = 1
         time.sleep(2)
         checkList = driver.find_element(By.CSS_SELECTOR, 'ul.check_list.lg')  #  체크리스트
+        time.sleep(1)
         checks = checkList.find_elements(By.TAG_NAME, 'li')
         for check in checks:
             checkbox = check.find_element(By.TAG_NAME, 'svg')
@@ -134,5 +135,5 @@ driver.implicitly_wait(3)
 storage = kreamStorage()
 storage.login()
 #TODO 클래스 구현으로 깔끔하게 https://wikidocs.net/28
-#ps5.storeSell('32974','')
-storage.storeSell('50888','L') # 뒤에 사이즈 없으면 없는대로 작동
+storage.storeSell('32974','')
+#storage.storeSell('50888','L') # 뒤에 사이즈 없으면 없는대로 작동

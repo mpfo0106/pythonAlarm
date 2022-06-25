@@ -37,7 +37,7 @@ def login(id,pw):
     time.sleep(4)
 
 def purchase():
-    productUrl = 'https://www.musinsa.com/app/goods/1296776'
+    productUrl = 'https://www.musinsa.com/app/goods/2545496/0'
     driver.get(productUrl)
     i = 1
     select_box = driver.find_element(By.XPATH,'//*[@id="option1"]')
@@ -76,7 +76,7 @@ def purchase():
 
 
 def musinsaPayPw(): #pyautogui 이용함. 성능이 구리면 opencv 도 이용할 예정
-    # TODO 여기서 막힘ㅜ
+    # TODO 여기서 막힘ㅜ + 시간 땡 하면 결제 되는 시스템으로
     driver.switch_to.window(driver.window_handles[1])  # 결제창 전환
     driver.implicitly_wait(1)
     button0 = pg.locateOnScreen('C:/Code/python/pythonMacro/img/0.png',confidence =0.7)
