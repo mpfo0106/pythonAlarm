@@ -3,14 +3,13 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 import time
 import chromedriver_autoinstaller
+import telegram
 import pyperclip
 import passWord
-
 import sys
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
-from slack_sdk import WebClient #슬랙
-from slack_sdk.errors import SlackApiError #슬랙 에러
+
 
 chromeW_options = webdriver.ChromeOptions()
 chromeW_options.add_argument("--disable-extensions")
@@ -36,41 +35,12 @@ else :
         chromedriver_autoinstaller.install(True)
         driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe',options=chromeW_options)
 
-slack_token = passWord.my_slack_token
-client = WebClient(token=slack_token) # 슬랙 생성
 
-# def naverLogin():
-#     url = 'https://nid.naver.com/nidlogin.login?mode=form&url=https%3A%2F%2Fwww.naver.com'
-#     driver.get(url)
-#     driver.implicitly_wait(1)
-#     naver_id = passWord.my_naver_id
-#     naver_pw = passWord.my_naver_pw
-#     pyperclip.copy(naver_id)
-#     driver.find_element(By.XPATH,'//*[@id="id"]').send_keys(Keys.CONTROL + 'v')
-#     pyperclip.copy(naver_pw)
-#     driver.find_element(By.XPATH,'//*[@id="pw"]').send_keys(Keys.CONTROL + 'v')
-#     time.sleep(0.7)
-#     driver.find_element(By.XPATH,'//*[@id="log.login"]').click()
-#     time.sleep(1)
+token = passWord.tele_offline_run_token
+id = 1905923211
+bot = telegram.Bot(token)
 
-
-# flag = 0
-# def job_function():
-#     if tmp_list:
-#         for index,url in enumerate(tmp_list):
-#             delIndex = check_restock(index,url)
-#             del tmp_list[delIndex]
-#     else:
-#         sched.pause()
-#
-# def job_restart():
-#     tmp_list.extend(url_list)
-# def check_exists_by_CSS(css):
-#     try:
-#         driver.find_elements(By.CSS_SELECTOR, css)
-#     except NoSuchElementException:
-#         return False
-#     return True
+# bot.sendMessage(chat_id=id, text="테스트 중입니다.")
 
 def check_alarm(url,title):
     driver.get(url+'/ArticleList.nhn?search.clubid='+clubid+'&search.boardtype=L')
@@ -83,18 +53,13 @@ def check_alarm(url,title):
         page = article.select_one('td.td_article > div.board-list > div > a') #select_one 주의!
         titleTmp =page.get_text().replace("\n", "").strip()
         #print(title)
-        try:
-            for keyWord in keyWords:
-                if(f'{keyWord}' in titleTmp) and (titleTmp not in title):
-                    link = page.get('href') #.get으로 href 뽑아오기
-                    response = client.chat_postMessage(channel='navercafe',
-                                                       text=f"{titleTmp} \n {baseUrl+ link}")
-                    title.append(titleTmp)
-                else:
-                    continue
-        except SlackApiError as e:
-            print('Error: {}'.format(e.response['error']))
-
+        for keyWord in keyWords:
+            if(f'{keyWord}' in titleTmp) and (titleTmp not in title):
+                link = page.get('href') #.get으로 href 뽑아오기
+                response = bot.sendMessage(chat_id=id, text=f"{titleTmp} \n {baseUrl+ link}")
+                title.append(titleTmp)
+            else:
+                continue
     return title
 
 title = []

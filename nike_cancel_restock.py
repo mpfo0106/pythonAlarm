@@ -3,13 +3,14 @@ import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import time
+import passWord
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 import telegram as tele
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from apscheduler.schedulers.blocking import BlockingScheduler
-bot = tele.Bot(token="5357762614:AAFyDNGu_baMCtwvVtzMWEfkEjdJgXSS0uQ")  # HTTP token입력
+bot = tele.Bot(token= passWord.my_tele_token)  # HTTP token입력
 chat_id = 1905923211 #채팅아이디(고정으로 쓸 경우)
 # chat_id = bot.getUpdates()[-1].message.chat.id  # 가장 최근에 온 메세지의 정보 중, chat id만 가져옴
 
