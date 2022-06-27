@@ -91,6 +91,7 @@ class kreamStorage:
             #try:
             da = Alert(driver)
             if da is None:
+                time.sleep(0.5)
                 driver.find_element(By.XPATH, '//*[@id="__layout"]/div/div[2]/div/div/div/div[1]/section[6]/div[2]/a').click()  # 마지막 최종 결제
             else:
                 da.accept()  # 팝업창 '확인' 클릭
@@ -135,5 +136,5 @@ driver.implicitly_wait(3)
 storage = kreamStorage()
 storage.login()
 #TODO 클래스 구현으로 깔끔하게 https://wikidocs.net/28
-storage.storeSell('32974','')
+storage.storeSell('53076','')
 #storage.storeSell('50888','L') # 뒤에 사이즈 없으면 없는대로 작동
