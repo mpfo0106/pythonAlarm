@@ -1,3 +1,6 @@
+import sys
+
+import chromedriver_autoinstaller
 import unicodedata
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -14,7 +17,13 @@ options.add_argument("--start-maximized")
 
 
 ###
-driver = webdriver.Chrome('chromedriver.exe', options=options)
+chrome_ver = chromedriver_autoinstaller.get_chrome_version().split('.')[0]  # 크롬드라이버 버전 확인
+try:
+    driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe',options=options)
+except:
+    chromedriver_autoinstaller.install(True)
+    driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe',options=options)
+
 driver.get('https://instagram.com')
 time.sleep(5)
 id = 'milk.budan'
