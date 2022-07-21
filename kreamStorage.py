@@ -7,6 +7,8 @@ import time
 import random
 import pyperclip
 import chromedriver_autoinstaller
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 options = webdriver.ChromeOptions()
 # options.headless = True
@@ -47,8 +49,8 @@ class kreamStorage:
         time.sleep(0.7)
 
         if my_size != '': #사이즈가 있는경우, 없으면 바로 보판 클릭임
-            sizeBtn = driver.find_element(By.XPATH, f'//span[contains(text(),"{my_size}")]//ancestor :: button') #TODO A1 사이즈 변경
-            #sizeBtn = driver.find_element(By.XPATH,f'//*[@id="__layout"]/div/div[2]/div/div/div/div[2]/div/ul/li[{my_size_int}]/button') # 사이즈
+            sizeBtn = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,f'//span[contains(text(),"{my_size}")]//ancestor :: button')))
+            #sizeBtn = driver.find_element(By.XPATH, f'//span[contains(text(),"{my_size}")]//ancestor :: button') #TODO A1 사이즈 변경
             time.sleep(0.7)
             sizeBtn.click()
         bopan =driver.find_element(By.CSS_SELECTOR,'a.btn_order.order_sell.inventory_ask.clickable') #보관신청
@@ -63,7 +65,8 @@ class kreamStorage:
         if my_size == '':
             driver.find_element(By.XPATH, '//*[@id="__layout"]/div/div[2]/div/div/div/div[3]/div/div[2]/div/button[2]').click()  # 플스의 경우 개수 한번 클릭
         else:
-            my_size_div = driver.find_element(By.XPATH,f'//div[contains(text(),"{my_size}")]//parent :: div') #TODO A1 사이즈로 바꿔
+            my_size_div = WebDriverWait(driver,10).until(EC.presence_of_element_located((By.XPATH,f'//div[contains(text(),"{my_size}")]//parent :: div')))
+            #my_size_div = driver.find_element(By.XPATH,f'//div[contains(text(),"{my_size}")]//parent :: div') #TODO A1 사이즈로 바꿔
             my_size_plus_btn = my_size_div.find_elements(By.TAG_NAME,'button')[1]
             time.sleep(0.5)
             my_size_plus_btn.click()
@@ -119,8 +122,8 @@ class kreamStorage:
 
     def checkBox(self):
         flag = 1
-        time.sleep(1)
-        checkList = driver.find_element(By.CSS_SELECTOR, 'ul.check_list.lg')  #  체크리스트
+        checkList = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'ul.check_list.lg')))
+        #checkList = driver.find_element(By.CSS_SELECTOR, 'ul.check_list.lg')  #  체크리스트
         time.sleep(1)
         checks = checkList.find_elements(By.TAG_NAME, 'li')
         for check in checks:

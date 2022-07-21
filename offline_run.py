@@ -27,7 +27,7 @@ chromeL_options.add_argument('--disable-dev-shm-usage')
 chromeL_options.add_argument("user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'")
 
 if sys.platform == 'linux':
-    driver = webdriver.Chrome('/home/ubuntu/alarm/pythonAlarm/chromedriver',options=chromeL_options)
+    driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver",options=chromeL_options)
 else :
     chrome_ver = chromedriver_autoinstaller.get_chrome_version().split('.')[0]  # 크롬드라이버 버전 확인
     try:
