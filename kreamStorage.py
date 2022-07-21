@@ -9,6 +9,7 @@ import pyperclip
 import chromedriver_autoinstaller
 
 options = webdriver.ChromeOptions()
+# options.headless = True
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36")
@@ -38,7 +39,7 @@ class kreamStorage:
 
 
     def storeSell(self,product,my_size):
-        total_cnt = random.randrange(20, 40)
+        cnt =0
         driver.get(f'https://kream.co.kr/products/{product}')
         driver.implicitly_wait(3)
         time.sleep(0.5)
@@ -55,12 +56,14 @@ class kreamStorage:
 
 
         flag = self.checkBox()## 체크박스 클릭
+        nextBtn = driver.find_element(By.XPATH, '//*[contains(text(),"다음")]')
+        nextBtn.send_keys(Keys.ENTER)
 
         # 개수 증량선택
         if my_size == '':
             driver.find_element(By.XPATH, '//*[@id="__layout"]/div/div[2]/div/div/div/div[3]/div/div[2]/div/button[2]').click()  # 플스의 경우 개수 한번 클릭
         else:
-            my_size_div = driver.find_element(By.XPATH,f'//div[contains(text(),"{my_size}")]//ancestor :: div') #TODO A1 사이즈로 바꿔
+            my_size_div = driver.find_element(By.XPATH,f'//div[contains(text(),"{my_size}")]//parent :: div') #TODO A1 사이즈로 바꿔
             my_size_plus_btn = my_size_div.find_elements(By.TAG_NAME,'button')[1]
             time.sleep(0.5)
             my_size_plus_btn.click()
@@ -84,6 +87,10 @@ class kreamStorage:
                 da = Alert(driver)
                 time.sleep(1)
                 da.accept() # 팝업창 '확인' 클릭
+
+                cnt +=1
+                if cnt>100:
+                    driver.refresh()
             except NoSuchElementException:
                 continue
             except NoAlertPresentException:
@@ -92,9 +99,9 @@ class kreamStorage:
 
 #TODO 2) 두번째 관문
         driver.implicitly_wait(2)
-        checkOut_btn = driver.find_element(By.XPATH, '//*[contains(text(),"결제하기")]')
         flag = self.checkBox()
-
+        checkOut_btn = driver.find_element(By.XPATH, '//*[contains(text(),"결제하기")]')
+        checkOut_btn.send_keys(Keys.ENTER)
         #경고문이 뜨면
         while(flag):
             time.sleep(3)
@@ -121,8 +128,6 @@ class kreamStorage:
             checkbox.click()
             time.sleep(0.2)
         time.sleep(1)
-        nextBtn =driver.find_element(By.XPATH,'//*[contains(text(),"다음") or contains(text(),"결제하기")]')
-        nextBtn.send_keys(Keys.ENTER)
         return flag
 
 
@@ -140,4 +145,4 @@ driver.implicitly_wait(3)
 storage = kreamStorage()
 storage.login()
 storage.storeSell('65117','A1')
-#storage.storeSell('50888','L') # 뒤에 사이즈 없으면 없는대로 작동
+# storage.storeSell('12831','275')
