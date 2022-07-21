@@ -14,7 +14,7 @@ from selenium.webdriver.common.by import By
 
 chromeW_options = webdriver.ChromeOptions()
 chromeW_options.add_argument("--disable-extensions")
-#chromeW_options.headless = True
+chromeW_options.headless = True
 chromeW_options.add_argument("window-size=2560x1600")
 chromeW_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36")
 headers = {"User-Agent" : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36"}
@@ -86,7 +86,7 @@ baseUrl = 'https://cafe.naver.com/ofad'
 clubid = '29331308'
 #naverLogin()
 while(True):
-    login(passWord.my_naver_id,passWord.my_naver_pw)
+    #login(passWord.my_naver_id,passWord.my_naver_pw)
     check_alarm(baseUrl,title) # 전체글보기 정확한 url 을 타겟팅 해줘야해
     if len(title) >15:
         del title[0]
