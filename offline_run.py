@@ -85,7 +85,7 @@ title = []
 keyWords = ['.','ㅎㅈ','홍조','ㅎㄴ','홍나','ㅎㅍ','홍풋','신풋','ㅅㅍ','ㅅㅈ','서조','두타','ㄷㅌ','ㅌㅋ','탐퀘','ㅅㄴ','서나','ㄱㄴ','강나','ㅁㄴ','명나','ㅇㅅ','용산','뛰어','뛰','달려']
 baseUrl = 'https://cafe.naver.com/ofad'
 clubid = '29331308'
-login(passWord.my_naver_id,passWord.my_naver_pw)
+#login(passWord.my_naver_id,passWord.my_naver_pw)
 while(True):
     check_alarm(baseUrl,title) # 전체글보기 정확한 url 을 타겟팅 해줘야해
     if len(title) >15:
