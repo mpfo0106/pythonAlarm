@@ -21,13 +21,13 @@ headers = {"User-Agent" : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit
 
 
 chromeL_options = webdriver.ChromeOptions()
-#chromeL_options.add_argument('--headless')
+chromeL_options.add_argument('--headless')
 chromeL_options.add_argument('--no-sandbox')
 chromeL_options.add_argument('--disable-dev-shm-usage')
 chromeL_options.add_argument("user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'")
 
 if sys.platform == 'linux':
-    driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver",options=chromeL_options)
+    driver = webdriver.Chrome("/home/ubuntu/alarm/pythonAlarm/chromedriver",options=chromeL_options)
 else :
     chrome_ver = chromedriver_autoinstaller.get_chrome_version().split('.')[0]  # 크롬드라이버 버전 확인
     try:
@@ -81,12 +81,12 @@ def check_alarm(url,title):
     return title
 
 title = []
-keyWords = ['.','스캇','ㅎㅈ','홍조','ㅎㄴ','홍나','ㅎㅍ','홍풋','신풋','ㅅㅍ','ㅅㅈ','서조','두타','ㄷㅌ','ㅌㅋ','탐퀘','ㅅㄴ','서나','ㄱㄴ','강나','ㅁㄴ','명나','ㅇㅅ','용산','뛰어','뛰','달려']
+keyWords = ['.','ㅎㅈ','홍조','ㅎㄴ','홍나','ㅎㅍ','홍풋','신풋','ㅅㅍ','ㅅㅈ','서조','두타','ㄷㅌ','ㅌㅋ','탐퀘','ㅅㄴ','서나','ㄱㄴ','강나','ㅁㄴ','명나','ㅇㅅ','용산','뛰어','뛰','달려']
 baseUrl = 'https://cafe.naver.com/ofad'
 clubid = '29331308'
 #naverLogin()
 while(True):
-    #login(passWord.my_naver_id,passWord.my_naver_pw)
+    login(passWord.my_naver_id,passWord.my_naver_pw)
     check_alarm(baseUrl,title) # 전체글보기 정확한 url 을 타겟팅 해줘야해
     if len(title) >15:
         del title[0]

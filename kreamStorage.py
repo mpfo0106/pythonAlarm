@@ -92,8 +92,11 @@ class kreamStorage:
                 da.accept() # 팝업창 '확인' 클릭
 
                 cnt +=1
-                if cnt>100:
+                if cnt>1000:
                     driver.refresh()
+                    WebDriverWait(driver,10).until(EC.presence_of_element_located((By.XPATH,f'//div[contains(text(),"{my_size}")]//parent :: div')))
+                    my_size_plus_btn.click()
+                    cnt =0
             except NoSuchElementException:
                 continue
             except NoAlertPresentException:
