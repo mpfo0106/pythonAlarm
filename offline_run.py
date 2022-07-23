@@ -2,7 +2,7 @@ import random
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import time
-import chromedriver_autoinstaller
+#import chromedriver_autoinstaller
 import telegram
 import pyperclip
 import passWord
