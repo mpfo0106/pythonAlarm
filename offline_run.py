@@ -29,13 +29,13 @@ chromeL_options.add_argument("user_agent = 'Mozilla/5.0 (X11; Linux x86_64) Appl
 
 if sys.platform == 'linux':
     driver = webdriver.Chrome("/root/pythonAlarm/chromedriver",options=chromeL_options)
-else :
-    chrome_ver = chromedriver_autoinstaller.get_chrome_version().split('.')[0]  # 크롬드라이버 버전 확인
-    try:
-        driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe',options=chromeW_options)
-    except:
-        chromedriver_autoinstaller.install(True)
-        driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe',options=chromeW_options)
+# else :
+#     chrome_ver = chromedriver_autoinstaller.get_chrome_version().split('.')[0]  # 크롬드라이버 버전 확인
+#     try:
+#         driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe',options=chromeW_options)
+#     except:
+#         chromedriver_autoinstaller.install(True)
+#         driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe',options=chromeW_options)
 
 
 token = passWord.tele_offline_run_token
